@@ -1,8 +1,9 @@
 package com.lucifer.tictactoegame.screens
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -18,7 +19,8 @@ import com.lucifer.tictactoegame.ui.theme.GreenishYellow
 fun BoardBase() {
     Canvas(
         modifier = Modifier
-            .size(300.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
             .padding(10.dp)
     ) {
         drawLine(
@@ -56,7 +58,8 @@ fun BoardBase() {
 fun Cross() {
     Canvas(
         modifier = Modifier
-            .size(60.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
             .padding(5.dp)
     ) {
         drawLine(
@@ -80,12 +83,14 @@ fun Cross() {
 fun Circle() {
     Canvas(
         modifier = Modifier
-            .size(61.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
             .padding(5.dp)
     ) {
         drawCircle(
             color = Aqua,
-            style = Stroke(width = 20f)
+            style = Stroke(width = 20f),
+            center = this.center
         )
     }
 }
@@ -94,7 +99,8 @@ fun Circle() {
 fun WinHorizontalLine1() {
     Canvas(
         modifier = Modifier
-            .size(300.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
 //            .padding(horizontal = 20.dp)
     ) {
         drawLine(
@@ -111,8 +117,8 @@ fun WinHorizontalLine1() {
 fun WinHorizontalLine2() {
     Canvas(
         modifier = Modifier
-            .size(300.dp)
-//            .padding(horizontal = 20.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
     ) {
         drawLine(
             color = Color.Red,
@@ -128,8 +134,8 @@ fun WinHorizontalLine2() {
 fun WinHorizontalLine3() {
     Canvas(
         modifier = Modifier
-            .size(300.dp)
-//            .padding(horizontal = 20.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
     ) {
         drawLine(
             color = Color.Red,
@@ -145,8 +151,8 @@ fun WinHorizontalLine3() {
 fun WinVerticalLine1() {
     Canvas(
         modifier = Modifier
-            .size(300.dp)
-//            .padding(horizontal = 20.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
     ) {
         drawLine(
             color = Color.Red,
@@ -162,8 +168,8 @@ fun WinVerticalLine1() {
 fun WinVerticalLine2() {
     Canvas(
         modifier = Modifier
-            .size(300.dp)
-//            .padding(horizontal = 20.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
     ) {
         drawLine(
             color = Color.Red,
@@ -179,8 +185,8 @@ fun WinVerticalLine2() {
 fun WinVerticalLine3() {
     Canvas(
         modifier = Modifier
-            .size(300.dp)
-//            .padding(horizontal = 20.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
     ) {
         drawLine(
             color = Color.Red,
@@ -196,8 +202,8 @@ fun WinVerticalLine3() {
 fun WinDiagonalLine1() {
     Canvas(
         modifier = Modifier
-            .size(300.dp)
-//            .padding(horizontal = 20.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
     ) {
         drawLine(
             color = Color.Red,
@@ -213,8 +219,8 @@ fun WinDiagonalLine1() {
 fun WinDiagonalLine2() {
     Canvas(
         modifier = Modifier
-            .size(300.dp)
-//            .padding(horizontal = 20.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
     ) {
         drawLine(
             color = Color.Red,
@@ -226,7 +232,7 @@ fun WinDiagonalLine2() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 600, heightDp = 600)
 @Composable
 fun PrevBoardBase() {
     BoardBase()
@@ -238,10 +244,4 @@ fun PrevBoardBase() {
     WinVerticalLine3()
     WinDiagonalLine1()
     WinDiagonalLine2()
-//    Column {
-//
-//        Cross()
-//
-//        Circle()
-//    }
 }
