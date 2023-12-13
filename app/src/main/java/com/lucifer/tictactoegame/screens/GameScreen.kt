@@ -1,6 +1,10 @@
 package com.lucifer.tictactoegame.screens
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.scaleIn
@@ -22,10 +26,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -57,12 +64,25 @@ fun GameScreen(viewModel: GameViewModel) {
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(1f),
+            modifier = Modifier
+                .fillMaxWidth(1f),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column (horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center){
+            Column (
+                modifier = Modifier
+                    .shadow(
+                        elevation = 2.dp,
+                        shape = RoundedCornerShape(10.dp),
+                        spotColor = Color.Gray,
+                        clip = true
+                    )
+                    .background(Color(0x70FFC400), shape = RoundedCornerShape(10.dp))
+                    .padding(15.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                ){
+
                 Text(text = "Player 'O'", fontSize = 16.sp)
                 Text( text = "${state.playerCircleCount}",
                     fontSize = 50.sp,
@@ -71,9 +91,29 @@ fun GameScreen(viewModel: GameViewModel) {
                     color = Aqua)
             }
 
-            Text(text = "Draw: ${state.playerDrawCount}", fontSize = 16.sp)
+            Text(text = "Draw: ${state.playerDrawCount}", fontSize = 16.sp,
+                modifier = Modifier
+                    .shadow(
+                    elevation = 2.dp,
+                    shape = RoundedCornerShape(10.dp),
+                    spotColor = Color.Gray,
+                    clip = true
+                    )
+                    .background(Color(0xFFDE9678), shape = RoundedCornerShape(10.dp))
+                    .padding(10.dp)
+            )
 
-            Column {
+            Column (horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .shadow(
+                        elevation = 2.dp,
+                        shape = RoundedCornerShape(10.dp),
+                        spotColor = Color.Gray,
+                        clip = true
+                    )
+                    .background(Color(0x70FFC400), shape = RoundedCornerShape(10.dp))
+                    .padding(15.dp)){
                 Text(text = "Player 'X'", fontSize = 16.sp)
                 Text( text = "${state.playerCrossCount}",
                     fontSize = 50.sp,
@@ -201,6 +241,31 @@ fun DrawVictoryLine(state : GameState) {
         VictoryType.DIAGONAL2 -> WinDiagonalLine2()
         else -> {}
     }
+}
+
+@Composable
+fun ShimmerEffect() {
+    val colors = listOf(Color.Transparent, Color.Green)
+    val transition = rememberInfiniteTransition(label = "")
+    val animatedProgress by transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 1000, easing = LinearEasing)
+        ), label = ""
+    )
+
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .aspectRatio(1f)
+        .background(
+            brush = Brush.linearGradient(
+                colors = colors,
+                start = Offset(30f, 30f),
+                end = Offset(40f, animatedProgress * 1000f)
+            )
+        )
+    )
 }
 
 
